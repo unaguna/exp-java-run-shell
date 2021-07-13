@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class StubLoadingProcessTest {
     @Test
-    public void test() throws IOException, InterruptedException {
+    public void test__load_python() throws IOException, InterruptedException {
         Path pythonCodePath = Paths.get("src/python/sample.py");
 
         Map<String, Object> input = new HashMap<>();
@@ -18,6 +18,20 @@ public class StubLoadingProcessTest {
         StubLoader<Map> process = new StubLoader<>(Map.class);
 
         Map output = process.load(pythonCodePath, input);
+        return;
+    }
+
+    @Test
+    public void test__load_json() throws IOException, InterruptedException {
+        Path jsonPath = Paths.get("src/python/a.json");
+
+        Map<String, Object> input = new HashMap<>();
+        input.put("a", 1);
+        input.put("b", 2);
+
+        StubLoader<Map> process = new StubLoader<>(Map.class);
+
+        Map output = process.load(jsonPath, input);
         return;
     }
 }

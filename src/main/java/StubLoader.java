@@ -62,6 +62,8 @@ public class StubLoader<Out> {
 
         if(scriptName.endsWith(".py")) {
             return "python";
+        } else if (scriptName.endsWith(".json")) {
+            return "json";
         } else {
             throw new IllegalArgumentException();
         }
