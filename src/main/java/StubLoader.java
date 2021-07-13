@@ -1,22 +1,18 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 public class StubLoader<Out> {
-    private final Class<Out> outClz;
     private final ObjectMapper mapper = new ObjectMapper();
-
-    public StubLoader(Class<Out> outClz) {
-        this.outClz = outClz;
-    }
 
     public Out load(Path stubFilePath, Object inputObject) throws IOException, InterruptedException {
         String interpreter = getInterpreter(stubFilePath);
 
         if(interpreter.equals("json")) {
             // JSON はそのまま読み込む
-            return this.mapper.readValue(stubFilePath.toFile(), this.outClz);
+            return this.mapper.readValue(stubFilePath.toFile(), new TypeReference<Out>(){ });
         } else {
             // スクリプトを実行してその標準出力を読み込む
             return exec(interpreter, stubFilePath, inputObject);
@@ -35,7 +31,7 @@ public class StubLoader<Out> {
         int exitCode = process.waitFor();
 
         if(exitCode == 0) {
-            return this.mapper.readValue(process.getInputStream(), this.outClz);
+            return this.mapper.readValue(process.getInputStream(), new TypeReference<Out>(){ });
         } else {
             return null;
         }

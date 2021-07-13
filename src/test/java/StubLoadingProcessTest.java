@@ -15,9 +15,9 @@ public class StubLoadingProcessTest {
         input.put("a", 1);
         input.put("b", 2);
 
-        StubLoader<Map> process = new StubLoader<>(Map.class);
+        StubLoader<Map<String, Object>> process = new StubLoader<>();
 
-        Map output = process.load(pythonCodePath, input);
+        Map<String, Object> output = process.load(pythonCodePath, input);
         return;
     }
 
@@ -29,9 +29,9 @@ public class StubLoadingProcessTest {
         input.put("a", 1);
         input.put("b", 2);
 
-        StubLoader<Map> process = new StubLoader<>(Map.class);
+        StubLoader<Map<String, Object>> process = new StubLoader<>();
 
-        Map output = process.load(jsonPath, input);
+        Map<String, Object> output = process.load(jsonPath, input);
         return;
     }
 }
